@@ -1,11 +1,12 @@
-﻿using KafkaExampleChat.Contracts;
+﻿using KafkaExampleChat.Messages;
 using KafkaExampleChat.Topics;
+using System;
 using System.Threading.Tasks;
 
 namespace KafkaExampleChat.Consumers
 {
-    public interface IConsumer
+    public interface IConsumer<TMessage> where TMessage : Message
     {
-        Task ExecuteAsync(ITopic topic, Message message);
+        Task ExecuteAsync(ITopic topic, TMessage message, Action<string> actionWriter);
     }
 }

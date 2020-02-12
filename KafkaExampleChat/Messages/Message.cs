@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KafkaExampleChat.Contracts
+namespace KafkaExampleChat.Messages
 {
     public abstract class Message
     {
