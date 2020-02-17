@@ -7,6 +7,6 @@ namespace KafkaExampleChat.Consumers
 {
     public interface IConsumer<TMessage> where TMessage : Message
     {
-        Task ExecuteAsync(ITopic topic, TMessage message, Guid producerId, Action<string> actionWriter);
+        Task ExecuteAsync(ITopic topic, TMessage message, string producerId, Action<string> actionWriter);
     }
 }
