@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Janela de chat" Height="450" Width="550" ResizeMode="NoResize">
     <Grid>
-        <local:BindableRichTextBox Source="{Binding Chat.ChatWindow}" IsReadOnly="True" Height="328"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,10,0" />
+        <local:BindableRichTextBox Document="{Binding Chat.ChatWindow}" IsDocumentEnabled="True" Height="328"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,10,0" />
         <TextBox Name="TxtEnvio" Text="{Binding Chat.Message}" Margin="10,0,0,30" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="408" Height="35" />
         <Button Name="BtnEnviar" Command="{Binding Path=TalkCommand}" CommandParameter="{Binding}" Content="Enviar" HorizontalAlignment="Right" Margin="0,0,10,30" VerticalAlignment="Bottom" Height="35" Width="100" Click="BtnEnviar_Click" />
         <StatusBar Name="StatusBar" VerticalAlignment="Bottom" Height="20">

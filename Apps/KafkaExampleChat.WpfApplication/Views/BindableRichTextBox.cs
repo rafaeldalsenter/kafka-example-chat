@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
@@ -7,28 +6,20 @@ namespace KafkaExampleChat.WpfApplication.Views
 {
     public sealed class BindableRichTextBox : RichTextBox
     {
-        public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source",
-                typeof(Uri), typeof(BindableRichTextBox),
-                new PropertyMetadata(OnSourceChanged));
+        public static readonly DependencyProperty DocumentProperty =
+            DependencyProperty.Register("Document", typeof(FlowDocument), typeof(BindableRichTextBox),
+                new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnDocumentChanged)));
 
-        public Uri Source
+        public new FlowDocument Document
         {
-            get => GetValue(SourceProperty) as Uri;
-            set => SetValue(SourceProperty, value);
+            get => this.GetValue(DocumentProperty) as FlowDocument;
+            set => this.SetValue(DocumentProperty, value);
         }
 
-        private static void OnSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        public static void OnDocumentChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            if (obj is BindableRichTextBox rtf && rtf.Source != null)
-            {
-                var stream = Application.GetResourceStream(rtf.Source);
-                if (stream != null)
-                {
-                    var range = new TextRange(rtf.Document.ContentStart, rtf.Document.ContentEnd);
-                    range.Load(stream.Stream, DataFormats.Rtf);
-                }
-            }
+            var rtb = obj as RichTextBox;
+            rtb.Document = args.NewValue as FlowDocument;
         }
     }
 }

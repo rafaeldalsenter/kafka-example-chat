@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Documents;
 
 namespace KafkaExampleChat.WpfApplication.Models
 {
@@ -8,7 +9,7 @@ namespace KafkaExampleChat.WpfApplication.Models
         private string _producerId;
         private string _statusBar;
         private string _message;
-        private string _chatWindow;
+        private FlowDocument _chatWindow;
 
         public string ProducerId
         {
@@ -40,7 +41,7 @@ namespace KafkaExampleChat.WpfApplication.Models
             }
         }
 
-        public string ChatWindow
+        public FlowDocument ChatWindow
         {
             get { return _chatWindow; }
             set
