@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Documents;
 
@@ -6,7 +7,7 @@ namespace KafkaExampleChat.WpfApplication.Models
 {
     public class Chat : INotifyPropertyChanged
     {
-        private string _producerId;
+        private string _producerId = Guid.NewGuid().ToString();
         private string _statusBar;
         private string _message;
         private FlowDocument _chatWindow;
@@ -14,11 +15,6 @@ namespace KafkaExampleChat.WpfApplication.Models
         public string ProducerId
         {
             get { return _producerId; }
-            set
-            {
-                _producerId = value;
-                OnPropertyChanged();
-            }
         }
 
         public string StatusBar

@@ -1,9 +1,5 @@
-﻿using KafkaExampleChat.WpfApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Windows.Input;
+﻿using KafkaExampleChat.WpfApplication.Commands;
+using KafkaExampleChat.WpfApplication.Models;
 
 namespace KafkaExampleChat.WpfApplication.ViewModels
 {

@@ -8,10 +8,5 @@ namespace KafkaExampleChat.WpfApplication.Views
         {
             InitializeComponent();
         }
-
-        private void BtnEnviar_Click(object sender, RoutedEventArgs e)
-        {
-            LblStatus.Text = "Enviando...";
-        }
     }
 }
