@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace KafkaExampleChat.WpfApplication.Commands
 {
-    public class TalkCommand : ICommand
+    public class SendMessageCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
