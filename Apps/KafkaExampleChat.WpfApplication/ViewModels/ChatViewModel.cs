@@ -5,20 +5,20 @@ namespace KafkaExampleChat.WpfApplication.ViewModels
 {
     public class ChatViewModel
     {
-        private Chat _chat;
+        private ChatModel _chatModel;
         private SendMessageCommand _sendMessageCommand;
 
         public ChatViewModel()
         {
-            _chat = new Chat();
+            _chatModel = new ChatModel();
         }
 
-        public Chat Chat
+        public ChatModel ChatModel
         {
-            get { return _chat; }
+            get { return _chatModel; }
             set
             {
-                _chat = value;
+                _chatModel = value;
                 SendMessageCommand.RaiseCanExecuteChanged();
             }
         }

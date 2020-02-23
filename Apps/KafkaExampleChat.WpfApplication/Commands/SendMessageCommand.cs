@@ -1,4 +1,5 @@
-﻿using KafkaExampleChat.WpfApplication.ViewModels;
+﻿using KafkaExampleChat.WpfApplication.Models;
+using KafkaExampleChat.WpfApplication.ViewModels;
 using System;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,28 +17,21 @@ namespace KafkaExampleChat.WpfApplication.Commands
         public void Execute(object parameter)
         {
             var viewModel = parameter as ChatViewModel;
-            viewModel.Chat.ChatWindow ??= new FlowDocument();
-
-            viewModel.Chat.StatusBar = "Enviando...";
+            viewModel.ChatModel.StatusBar = "Enviando...";
 
             // Aqui enviar criar uma mensagem ao produtor
 
             // se retornar sucesso, escrever a mensagem na tela
 
-            viewModel.Chat.StatusBar = "Enviado!";
+            viewModel.ChatModel.StatusBar = "Enviado!";
 
-            AddToFlowDocument(viewModel.Chat.ChatWindow, viewModel);
-            viewModel.Chat.Message = string.Empty;
-        }
+            viewModel.ChatModel.AddMessage(new MessageModel
+            {
+                ProducerId = viewModel.ChatModel.ProducerId,
+                Message = viewModel.ChatModel.Message
+            });
 
-        private string FormatMessage(ChatViewModel viewModel)
-            => $"[{viewModel.Chat.ProducerId}] disse: {viewModel.Chat.Message}";
-
-        private void AddToFlowDocument(FlowDocument flowDocument, ChatViewModel viewModel)
-        {
-            var paragraph = new Paragraph(new Run(FormatMessage(viewModel)));
-            paragraph.Margin = new System.Windows.Thickness(0, 2, 0, 0);
-            flowDocument.Blocks.Add(paragraph);
+            viewModel.ChatModel.Message = string.Empty;
         }
     }
 }

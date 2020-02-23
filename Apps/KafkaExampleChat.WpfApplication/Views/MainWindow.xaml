@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Janela de chat" Height="450" Width="550" ResizeMode="NoResize">
     <Grid>
-        <local:BindableRichTextBox Document="{Binding Chat.ChatWindow}" IsReadOnly="True" IsDocumentEnabled="True" Height="328"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,10,0" />
-        <TextBox Name="TxtEnvio" Text="{Binding Chat.Message}" Margin="10,0,0,30" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="408" Height="35" />
+        <local:BindableRichTextBox Document="{Binding ChatModel.ChatWindow}" IsReadOnly="True" IsDocumentEnabled="True" Height="328"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,10,0" />
+        <TextBox Name="TxtEnvio" Text="{Binding ChatModel.Message}" Margin="10,0,0,30" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="408" Height="35" />
 
         <Button Name="BtnEnviar" Command="{Binding Path=SendMessageCommand}" CommandParameter="{Binding}" Content="Enviar" HorizontalAlignment="Right" Margin="0,0,10,30" VerticalAlignment="Bottom" Height="35" Width="100" />
         <StatusBar Name="StatusBar" VerticalAlignment="Bottom" Height="20">
             <StatusBarItem>
-                <TextBlock Name="LblStatus" Text="{Binding Chat.StatusBar}" FontSize="10" />
+                <TextBlock Name="LblStatus" Text="{Binding ChatModel.StatusBar}" FontSize="10" />
             </StatusBarItem>
         </StatusBar>
     </Grid>
