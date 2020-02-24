@@ -1,22 +1,23 @@
 ﻿using Confluent.Kafka;
-using KafkaExampleChat.Configurations.Dtos;
 
 namespace KafkaExampleChat.Configurations
 {
     public class KafkaConfiguration : IKafkaConfiguration
     {
-        private readonly KafkaConfigurationDto _dto;
+        private readonly string _servers;
+        private readonly BrokerAddressFamily _brokerAddressFamily;
 
-        public KafkaConfiguration(KafkaConfigurationDto dto)
+        public KafkaConfiguration(string servers, BrokerAddressFamily brokerAddressFamily)
         {
-            _dto = dto;
+            _servers = servers;
+            _brokerAddressFamily = brokerAddressFamily;
         }
 
         public ProducerConfig GetProducerConfiguration()
             => new ProducerConfig(new ClientConfig()
             {
-                BootstrapServers = _dto.Servers,
-                BrokerAddressFamily = _dto.BrokerAddressFamily,
+                BootstrapServers = _servers,
+                BrokerAddressFamily = _brokerAddressFamily,
             });
     }
 }

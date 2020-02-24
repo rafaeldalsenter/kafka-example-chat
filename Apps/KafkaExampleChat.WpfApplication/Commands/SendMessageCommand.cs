@@ -1,13 +1,27 @@
-﻿using KafkaExampleChat.WpfApplication.Models;
+﻿using Confluent.Kafka;
+using KafkaExampleChat.Configurations;
+using KafkaExampleChat.Messages;
+using KafkaExampleChat.Producers;
+using KafkaExampleChat.Topics;
+using KafkaExampleChat.WpfApplication.Models;
 using KafkaExampleChat.WpfApplication.ViewModels;
 using System;
-using System.Windows.Documents;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace KafkaExampleChat.WpfApplication.Commands
 {
     public class SendMessageCommand : ICommand
     {
+        private readonly IProducer<ChatMessage> _producer;
+
+        public SendMessageCommand()
+        {
+            var kafkaConfiguration = new KafkaConfiguration("localhost:9092", BrokerAddressFamily.Any);
+
+            _producer = new Producer(kafkaConfiguration);
+        }
+
         public event EventHandler CanExecuteChanged;
 
         public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
@@ -19,9 +33,14 @@ namespace KafkaExampleChat.WpfApplication.Commands
             var viewModel = parameter as ChatViewModel;
             viewModel.ChatModel.StatusBar = "Enviando...";
 
-            // Aqui enviar criar uma mensagem ao produtor
+            var sendMessageToKafka = SendMessageToKafka(viewModel);
 
-            // se retornar sucesso, escrever a mensagem na tela
+            if (!sendMessageToKafka)
+            {
+                viewModel.ChatModel.StatusBar = "Ops! Tente novamente!";
+
+                return;
+            }
 
             viewModel.ChatModel.StatusBar = "Enviado!";
 
@@ -32,6 +51,25 @@ namespace KafkaExampleChat.WpfApplication.Commands
             });
 
             viewModel.ChatModel.Message = string.Empty;
+        }
+
+        private bool SendMessageToKafka(ChatViewModel viewModel)
+        {
+            var task = Task.Run(async () =>
+            {
+                var chatMessage = new ChatMessage
+                {
+                    Id = Guid.NewGuid(),
+                    ProducerId = viewModel.ChatModel.ProducerId,
+                    Text = viewModel.ChatModel.Message
+                };
+
+                await _producer.SendAsync(new MessageTopic(), chatMessage);
+            });
+
+            Task.WhenAll(task);
+
+            return true;
         }
     }
 }
