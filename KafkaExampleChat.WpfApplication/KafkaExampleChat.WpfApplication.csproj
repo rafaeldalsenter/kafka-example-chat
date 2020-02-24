@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\KafkaExampleChat\KafkaExampleChat.csproj" />
+    <ProjectReference Include="..\KafkaExampleChat\KafkaExampleChat.csproj" />
   </ItemGroup>
-
 </Project>
