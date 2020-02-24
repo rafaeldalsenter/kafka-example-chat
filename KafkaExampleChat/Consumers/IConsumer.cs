@@ -1,12 +1,13 @@
 ﻿using KafkaExampleChat.Messages;
 using KafkaExampleChat.Topics;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace KafkaExampleChat.Consumers
 {
     public interface IConsumer<TMessage> where TMessage : Message
     {
-        Task ExecuteAsync(ITopic topic, TMessage message, string producerId, Action<string> actionWriter);
+        Task ExecuteAsync(string producerId, Action<TMessage> actionWriter, CancellationToken cancellationToken);
     }
 }

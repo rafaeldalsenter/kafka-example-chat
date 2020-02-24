@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Threading;
 
 namespace KafkaExampleChat.WpfApplication.Models
 {
@@ -46,11 +48,14 @@ namespace KafkaExampleChat.WpfApplication.Models
 
         public void AddMessage(MessageModel message)
         {
-            var paragraph = new Paragraph(new Run(FormatMessage(message)));
-            paragraph.Margin = new System.Windows.Thickness(0, 2, 0, 0);
-            _chatWindow.Blocks.Add(paragraph);
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                var paragraph = new Paragraph(new Run(FormatMessage(message)));
+                paragraph.Margin = new System.Windows.Thickness(0, 2, 0, 0);
+                _chatWindow.Blocks.Add(paragraph);
 
-            OnPropertyChanged(nameof(ChatWindow));
+                OnPropertyChanged(nameof(ChatWindow));
+            }));
         }
 
         private string FormatMessage(MessageModel message)

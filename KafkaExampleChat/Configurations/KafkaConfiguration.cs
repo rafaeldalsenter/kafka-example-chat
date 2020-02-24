@@ -13,6 +13,14 @@ namespace KafkaExampleChat.Configurations
             _brokerAddressFamily = brokerAddressFamily;
         }
 
+        public ConsumerConfig GetConsumerConfiguration()
+            => new ConsumerConfig
+            {
+                BootstrapServers = _servers,
+                AutoOffsetReset = AutoOffsetReset.Earliest,
+                GroupId = "default"
+            };
+
         public ProducerConfig GetProducerConfiguration()
             => new ProducerConfig(new ClientConfig()
             {

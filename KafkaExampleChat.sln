@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaExampleChat", "KafkaEx
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{E1E9AD93-D819-4B61-A5BE-31982A785DDF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaExampleChat.WebApplication", "Apps\KafkaExampleChat.WebApplication\KafkaExampleChat.WebApplication.csproj", "{10164FA0-2FB9-42F4-B121-5E3D1341FF04}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaExampleChat.WpfApplication", "Apps\KafkaExampleChat.WpfApplication\KafkaExampleChat.WpfApplication.csproj", "{1FA0A117-527A-4F59-A560-83759C4615F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{60E96258-F683-4AA8-BF1A-123B82DC433A}"
@@ -26,10 +24,6 @@ Global
 		{DD18D203-CE7C-4844-B4BD-C9FAFF729798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD18D203-CE7C-4844-B4BD-C9FAFF729798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD18D203-CE7C-4844-B4BD-C9FAFF729798}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10164FA0-2FB9-42F4-B121-5E3D1341FF04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10164FA0-2FB9-42F4-B121-5E3D1341FF04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10164FA0-2FB9-42F4-B121-5E3D1341FF04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10164FA0-2FB9-42F4-B121-5E3D1341FF04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1FA0A117-527A-4F59-A560-83759C4615F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FA0A117-527A-4F59-A560-83759C4615F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA0A117-527A-4F59-A560-83759C4615F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,7 +33,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{10164FA0-2FB9-42F4-B121-5E3D1341FF04} = {E1E9AD93-D819-4B61-A5BE-31982A785DDF}
 		{1FA0A117-527A-4F59-A560-83759C4615F5} = {E1E9AD93-D819-4B61-A5BE-31982A785DDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

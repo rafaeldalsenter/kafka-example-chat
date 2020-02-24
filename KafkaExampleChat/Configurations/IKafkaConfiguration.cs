@@ -5,5 +5,7 @@ namespace KafkaExampleChat.Configurations
     public interface IKafkaConfiguration
     {
         ProducerConfig GetProducerConfiguration();
+
+        ConsumerConfig GetConsumerConfiguration();
     }
 }
