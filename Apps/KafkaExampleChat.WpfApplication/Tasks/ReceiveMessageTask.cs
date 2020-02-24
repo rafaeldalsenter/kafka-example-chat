@@ -21,7 +21,7 @@ namespace KafkaExampleChat.WpfApplication.Tasks
 
         public ReceiveMessageTask()
         {
-            var kafkaConfiguration = new KafkaConfiguration("localhost:9092", BrokerAddressFamily.Any);
+            var kafkaConfiguration = new KafkaConfiguration("localhost:9092", ClasseEstaticaTeste.GetClientId, BrokerAddressFamily.Any);
 
             _consumer = new Consumer(kafkaConfiguration);
         }

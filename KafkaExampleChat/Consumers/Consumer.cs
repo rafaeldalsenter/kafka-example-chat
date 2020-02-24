@@ -32,8 +32,8 @@ namespace KafkaExampleChat.Consumers
 
                 var message = JsonConvert.DeserializeObject<ChatMessage>(consumeResult.Value);
 
-                if (!message.ProducerId.Equals(producerId))
-                    actionWriter(message);
+                //if (!message.ProducerId.Equals(producerId))
+                actionWriter(message);
 
                 _consumer.Commit(consumeResult);
             }

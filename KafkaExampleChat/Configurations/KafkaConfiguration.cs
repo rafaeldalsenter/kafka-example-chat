@@ -5,11 +5,13 @@ namespace KafkaExampleChat.Configurations
     public class KafkaConfiguration : IKafkaConfiguration
     {
         private readonly string _servers;
+        private readonly string _clientId;
         private readonly BrokerAddressFamily _brokerAddressFamily;
 
-        public KafkaConfiguration(string servers, BrokerAddressFamily brokerAddressFamily)
+        public KafkaConfiguration(string servers, string clientId, BrokerAddressFamily brokerAddressFamily)
         {
             _servers = servers;
+            _clientId = clientId;
             _brokerAddressFamily = brokerAddressFamily;
         }
 
@@ -18,14 +20,15 @@ namespace KafkaExampleChat.Configurations
             {
                 BootstrapServers = _servers,
                 AutoOffsetReset = AutoOffsetReset.Earliest,
-                GroupId = "default"
+                GroupId = "default",
+                ClientId = _clientId
             };
 
         public ProducerConfig GetProducerConfiguration()
             => new ProducerConfig(new ClientConfig()
             {
                 BootstrapServers = _servers,
-                BrokerAddressFamily = _brokerAddressFamily,
+                ClientId = _clientId
             });
     }
 }
