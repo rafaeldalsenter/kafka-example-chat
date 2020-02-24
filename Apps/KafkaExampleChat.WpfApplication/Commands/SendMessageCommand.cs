@@ -17,7 +17,7 @@ namespace KafkaExampleChat.WpfApplication.Commands
 
         public SendMessageCommand()
         {
-            var kafkaConfiguration = new KafkaConfiguration("localhost:9092", ClasseEstaticaTeste.GetClientId, BrokerAddressFamily.Any);
+            var kafkaConfiguration = new KafkaConfiguration("localhost:9092", Guid.NewGuid().ToString(), BrokerAddressFamily.Any);
 
             _producer = new Producer(kafkaConfiguration);
         }
@@ -44,11 +44,11 @@ namespace KafkaExampleChat.WpfApplication.Commands
 
             viewModel.ChatModel.StatusBar = "Enviado!";
 
-            viewModel.ChatModel.AddMessage(new MessageModel
-            {
-                ProducerId = viewModel.ChatModel.ProducerId,
-                Message = viewModel.ChatModel.Message
-            });
+            //viewModel.ChatModel.AddMessage(new MessageModel
+            //{
+            //    ProducerId = viewModel.ChatModel.ProducerId,
+            //    Message = viewModel.ChatModel.Message
+            //});
 
             viewModel.ChatModel.Message = string.Empty;
         }
@@ -67,7 +67,7 @@ namespace KafkaExampleChat.WpfApplication.Commands
                 await _producer.SendAsync(new MessageTopic(), chatMessage);
             });
 
-            Task.WhenAll(task);
+            task.Wait();
 
             return true;
         }

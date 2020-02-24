@@ -1,4 +1,5 @@
 ﻿using Confluent.Kafka;
+using System;
 
 namespace KafkaExampleChat.Configurations
 {
@@ -19,8 +20,10 @@ namespace KafkaExampleChat.Configurations
             => new ConsumerConfig
             {
                 BootstrapServers = _servers,
-                AutoOffsetReset = AutoOffsetReset.Earliest,
-                GroupId = "default",
+                BrokerAddressFamily = _brokerAddressFamily,
+                AutoOffsetReset = AutoOffsetReset.Latest,
+                EnableAutoCommit = false,
+                GroupId = Guid.NewGuid().ToString(),
                 ClientId = _clientId
             };
 
@@ -28,6 +31,7 @@ namespace KafkaExampleChat.Configurations
             => new ProducerConfig(new ClientConfig()
             {
                 BootstrapServers = _servers,
+                BrokerAddressFamily = _brokerAddressFamily,
                 ClientId = _clientId
             });
     }

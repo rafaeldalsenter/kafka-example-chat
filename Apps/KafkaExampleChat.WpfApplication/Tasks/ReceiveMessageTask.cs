@@ -28,9 +28,9 @@ namespace KafkaExampleChat.WpfApplication.Tasks
 
         public void Execute(CancellationToken cancellationToken)
         {
-            Task.Run(async () =>
+            Task.Run(() =>
             {
-                await _consumer.ExecuteAsync(ViewModel.ChatModel.ProducerId, Escrever, cancellationToken);
+                _consumer.Execute(ViewModel.ChatModel.ProducerId, Escrever, cancellationToken);
             });
         }
 

@@ -8,6 +8,6 @@ namespace KafkaExampleChat.Consumers
 {
     public interface IConsumer<TMessage> where TMessage : Message
     {
-        Task ExecuteAsync(string producerId, Action<TMessage> actionWriter, CancellationToken cancellationToken);
+        void Execute(string producerId, Action<TMessage> actionWriter, CancellationToken cancellationToken);
     }
 }

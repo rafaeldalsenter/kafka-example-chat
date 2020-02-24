@@ -12,30 +12,32 @@ namespace KafkaExampleChat.Consumers
 {
     public class Consumer : IConsumer<ChatMessage>
     {
-        private IConsumer<Ignore, string> _consumer;
         private readonly IKafkaConfiguration _kafkaConfiguration;
 
         public Consumer(IKafkaConfiguration kafkaConfiguration)
         {
             _kafkaConfiguration = kafkaConfiguration;
-            _consumer = new ConsumerBuilder<Ignore, string>(_kafkaConfiguration.GetConsumerConfiguration())
-                .Build();
         }
 
-        public async Task ExecuteAsync(string producerId, Action<ChatMessage> actionWriter, CancellationToken cancellationToken)
+        public void Execute(string producerId, Action<ChatMessage> actionWriter, CancellationToken cancellationToken)
         {
-            _consumer.Subscribe(new List<string> { "message-topic" });
-
-            while (true)
+            using (var consumer = new ConsumerBuilder<string, string>(_kafkaConfiguration.GetConsumerConfiguration()).Build())
             {
-                var consumeResult = _consumer.Consume(cancellationToken);
+                consumer.Subscribe(new List<string> { "message-topic" });
 
-                var message = JsonConvert.DeserializeObject<ChatMessage>(consumeResult.Value);
+                while (true)
+                {
+                    var consumeResult = consumer.Consume();
 
-                //if (!message.ProducerId.Equals(producerId))
-                actionWriter(message);
+                    if (consumeResult is null) continue;
 
-                _consumer.Commit(consumeResult);
+                    var message = JsonConvert.DeserializeObject<ChatMessage>(consumeResult.Value);
+
+                    //if (!message.ProducerId.Equals(producerId))
+                    actionWriter(message);
+
+                    consumer.Commit(consumeResult);
+                }
             }
         }
     }
