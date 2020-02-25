@@ -17,7 +17,7 @@ namespace KafkaExampleChat.WpfApplication.Commands
 
         public SendMessageCommand()
         {
-            var kafkaConfiguration = new KafkaConfiguration("localhost:9092", Guid.NewGuid().ToString(), BrokerAddressFamily.Any);
+            var kafkaConfiguration = new KafkaConfiguration("localhost:9092");
 
             _producer = new Producer(kafkaConfiguration);
         }
