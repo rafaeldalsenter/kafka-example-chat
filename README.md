@@ -3,7 +3,7 @@
 
 Esta aplicação demonstra o uso básico do Apache Kafka para uma aplicação de Chat. A aplicação contém um `Consumer` e um `Producer`, permitindo assim, enviar e receber mensagens. O Kafka, Zookeeper e KafkaTopicsUI sobem via arquivo docker-compose, criado baseando-se no projeto [kafka-stack-docker-compose](https://github.com/simplesteph/kafka-stack-docker-compose).
 
-Para subir a aplicação, basta rodar o CMD na pasta Docker:
+Para subir a estrutura Kafka, basta rodar o CMD na pasta Docker:
 
 ```dockerfile
 docker-compose up --build -d
