@@ -13,11 +13,9 @@ namespace KafkaExampleChat.WpfApplication.Commands
     {
         private readonly IProducer<ChatMessage> _producer;
 
-        public SendMessageCommand()
+        public SendMessageCommand(IProducer<ChatMessage> producer)
         {
-            var kafkaConfiguration = new KafkaConfiguration();
-
-            _producer = new Producer(kafkaConfiguration);
+            _producer = producer;
         }
 
         public event EventHandler CanExecuteChanged;

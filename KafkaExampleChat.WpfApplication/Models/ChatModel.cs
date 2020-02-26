@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Threading;
 
 namespace KafkaExampleChat.WpfApplication.Models
 {

@@ -1,8 +1,11 @@
-﻿using KafkaExampleChat.WpfApplication.Tasks;
+﻿using KafkaExampleChat.Ioc;
+using KafkaExampleChat.WpfApplication.Ioc;
+using KafkaExampleChat.WpfApplication.Tasks;
 using KafkaExampleChat.WpfApplication.ViewModels;
 using KafkaExampleChat.WpfApplication.Views;
 using System.Threading;
 using System.Windows;
+using Unity;
 
 namespace KafkaExampleChat.WpfApplication
 {
@@ -12,13 +15,16 @@ namespace KafkaExampleChat.WpfApplication
         {
             base.OnStartup(e);
 
-            var receiveTask = new ReceiveMessageTask();
+            var container = new UnityConfig().GetContainer;
 
-            var window = new MainWindow();
-            var viewModel = new ChatViewModel();
-            window.DataContext = viewModel;
+            var receiveTask = container.Resolve<ReceiveMessageTask>();
+            var viewModel = container.Resolve<ChatViewModel>();
+            var window = container.Resolve<MainWindow>();
+
             receiveTask.ViewModel = viewModel;
             receiveTask.Execute(CancellationToken.None);
+
+            window.DataContext = viewModel;
             window.Show();
         }
     }

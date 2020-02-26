@@ -8,9 +8,10 @@ namespace KafkaExampleChat.WpfApplication.ViewModels
         private ChatModel _chatModel;
         private SendMessageCommand _sendMessageCommand;
 
-        public ChatViewModel()
+        public ChatViewModel(SendMessageCommand sendMessageCommand)
         {
             _chatModel = new ChatModel();
+            _sendMessageCommand = sendMessageCommand;
         }
 
         public ChatModel ChatModel
@@ -25,11 +26,7 @@ namespace KafkaExampleChat.WpfApplication.ViewModels
 
         public SendMessageCommand SendMessageCommand
         {
-            get
-            {
-                _sendMessageCommand ??= new SendMessageCommand();
-                return _sendMessageCommand;
-            }
+            get { return _sendMessageCommand; }
             set
             {
                 _sendMessageCommand = value;

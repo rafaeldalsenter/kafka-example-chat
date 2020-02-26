@@ -1,5 +1,4 @@
-﻿using KafkaExampleChat.Configurations;
-using KafkaExampleChat.Consumers;
+﻿using KafkaExampleChat.Consumers;
 using KafkaExampleChat.Messages;
 using KafkaExampleChat.Topics;
 using KafkaExampleChat.WpfApplication.Models;
@@ -15,11 +14,9 @@ namespace KafkaExampleChat.WpfApplication.Tasks
 
         public ChatViewModel ViewModel { get; set; }
 
-        public ReceiveMessageTask()
+        public ReceiveMessageTask(IConsumer<ChatMessage> consumer)
         {
-            var kafkaConfiguration = new KafkaConfiguration();
-
-            _consumer = new Consumer(kafkaConfiguration);
+            _consumer = consumer;
         }
 
         public void Execute(CancellationToken cancellationToken)
@@ -30,7 +27,7 @@ namespace KafkaExampleChat.WpfApplication.Tasks
             });
         }
 
-        public void Escrever(ChatMessage chatMessage)
+        private void Escrever(ChatMessage chatMessage)
         {
             var messageModel = new MessageModel
             {
