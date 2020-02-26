@@ -1,5 +1,6 @@
 ﻿using Confluent.Kafka;
 using System;
+using System.Configuration;
 
 namespace KafkaExampleChat.Configurations
 {
@@ -7,9 +8,9 @@ namespace KafkaExampleChat.Configurations
     {
         private readonly string _servers;
 
-        public KafkaConfiguration(string servers)
+        public KafkaConfiguration()
         {
-            _servers = servers;
+            _servers = ConfigurationManager.AppSettings["kafka-server"].ToString();
         }
 
         public ConsumerConfig GetConsumerConfiguration()

@@ -2,12 +2,11 @@
 using KafkaExampleChat.Topics;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace KafkaExampleChat.Consumers
 {
     public interface IConsumer<TMessage> where TMessage : Message
     {
-        void Execute(string producerId, Action<TMessage> actionWriter, CancellationToken cancellationToken);
+        void Execute(ITopic topic, Action<TMessage> actionWriter, CancellationToken cancellationToken);
     }
 }

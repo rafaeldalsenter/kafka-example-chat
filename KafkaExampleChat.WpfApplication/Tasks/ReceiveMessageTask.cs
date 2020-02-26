@@ -1,15 +1,11 @@
-﻿using Confluent.Kafka;
-using KafkaExampleChat.Configurations;
+﻿using KafkaExampleChat.Configurations;
 using KafkaExampleChat.Consumers;
 using KafkaExampleChat.Messages;
+using KafkaExampleChat.Topics;
 using KafkaExampleChat.WpfApplication.Models;
 using KafkaExampleChat.WpfApplication.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace KafkaExampleChat.WpfApplication.Tasks
 {
@@ -21,7 +17,7 @@ namespace KafkaExampleChat.WpfApplication.Tasks
 
         public ReceiveMessageTask()
         {
-            var kafkaConfiguration = new KafkaConfiguration("localhost:9092");
+            var kafkaConfiguration = new KafkaConfiguration();
 
             _consumer = new Consumer(kafkaConfiguration);
         }
@@ -30,7 +26,7 @@ namespace KafkaExampleChat.WpfApplication.Tasks
         {
             Task.Run(() =>
             {
-                _consumer.Execute(ViewModel.ChatModel.ProducerId, Escrever, cancellationToken);
+                _consumer.Execute(new MessageTopic(), Escrever, cancellationToken);
             });
         }
 

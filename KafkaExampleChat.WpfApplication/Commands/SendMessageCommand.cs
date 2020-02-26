@@ -1,9 +1,7 @@
-﻿using Confluent.Kafka;
-using KafkaExampleChat.Configurations;
+﻿using KafkaExampleChat.Configurations;
 using KafkaExampleChat.Messages;
 using KafkaExampleChat.Producers;
 using KafkaExampleChat.Topics;
-using KafkaExampleChat.WpfApplication.Models;
 using KafkaExampleChat.WpfApplication.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -17,7 +15,7 @@ namespace KafkaExampleChat.WpfApplication.Commands
 
         public SendMessageCommand()
         {
-            var kafkaConfiguration = new KafkaConfiguration("localhost:9092");
+            var kafkaConfiguration = new KafkaConfiguration();
 
             _producer = new Producer(kafkaConfiguration);
         }
@@ -38,18 +36,10 @@ namespace KafkaExampleChat.WpfApplication.Commands
             if (!sendMessageToKafka)
             {
                 viewModel.ChatModel.StatusBar = "Ops! Tente novamente!";
-
                 return;
             }
 
             viewModel.ChatModel.StatusBar = "Enviado!";
-
-            //viewModel.ChatModel.AddMessage(new MessageModel
-            //{
-            //    ProducerId = viewModel.ChatModel.ProducerId,
-            //    Message = viewModel.ChatModel.Message
-            //});
-
             viewModel.ChatModel.Message = string.Empty;
         }
 
@@ -57,19 +47,28 @@ namespace KafkaExampleChat.WpfApplication.Commands
         {
             var task = Task.Run(async () =>
             {
-                var chatMessage = new ChatMessage
+                try
                 {
-                    Id = Guid.NewGuid(),
-                    ProducerId = viewModel.ChatModel.ProducerId,
-                    Text = viewModel.ChatModel.Message
-                };
+                    var chatMessage = new ChatMessage
+                    {
+                        Id = Guid.NewGuid(),
+                        ProducerId = viewModel.ChatModel.ProducerId,
+                        Text = viewModel.ChatModel.Message
+                    };
 
-                await _producer.SendAsync(new MessageTopic(), chatMessage);
+                    await _producer.SendAsync(new MessageTopic(), chatMessage);
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             });
 
             task.Wait();
 
-            return true;
+            return task.Result;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KafkaExampleChat.Messages
+﻿namespace KafkaExampleChat.Messages
 {
     public class ChatMessage : Message
     {
