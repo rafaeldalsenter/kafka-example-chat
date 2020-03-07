@@ -8,7 +8,7 @@ Para subir a estrutura Kafka, basta rodar o CMD na pasta Docker:
 ```dockerfile
 docker-compose up --build -d
 ```
-Após isso, é só executa o projeto. Executando várias instâncias você consegue fazer um bate-papo ☺
+Após isso, é só executar o projeto. Executando várias instâncias você consegue fazer um bate-papo ☺
 
 Para visualizar as mensagens que chegam no Kafka, pode abrir no navegador o Kafka Topics UI: http://localhost:8000/
 
