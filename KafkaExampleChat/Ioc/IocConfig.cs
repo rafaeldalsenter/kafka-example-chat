@@ -1,6 +1,5 @@
 ﻿using KafkaExampleChat.Configurations;
 using KafkaExampleChat.Consumers;
-using KafkaExampleChat.Messages;
 using KafkaExampleChat.Producers;
 using Unity;
 
@@ -13,8 +12,8 @@ namespace KafkaExampleChat.Ioc
             var unityContainer = new UnityContainer();
 
             unityContainer.RegisterType<IKafkaConfiguration, KafkaConfiguration>();
-            unityContainer.RegisterType<IConsumer<ChatMessage>, Consumer>();
-            unityContainer.RegisterType<IProducer<ChatMessage>, Producer>();
+            unityContainer.RegisterType(typeof(IConsumer<>), typeof(Consumer<>));
+            unityContainer.RegisterType(typeof(IProducer<>), typeof(Producer<>));
 
             return unityContainer;
         }

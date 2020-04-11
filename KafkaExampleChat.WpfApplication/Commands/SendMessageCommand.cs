@@ -54,7 +54,7 @@ namespace KafkaExampleChat.WpfApplication.Commands
                         Text = viewModel.ChatModel.Message
                     };
 
-                    await _producer.SendAsync(new MessageTopic(), chatMessage);
+                    await _producer.SendAsync(new ChatMessageTopic(), chatMessage);
 
                     return true;
                 }

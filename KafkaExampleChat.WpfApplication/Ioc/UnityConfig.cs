@@ -4,8 +4,6 @@ using KafkaExampleChat.WpfApplication.Tasks;
 using KafkaExampleChat.WpfApplication.ViewModels;
 using KafkaExampleChat.WpfApplication.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Unity;
 
 namespace KafkaExampleChat.WpfApplication.Ioc

@@ -58,7 +58,7 @@ namespace KafkaExampleChat.WpfApplication.Models
         }
 
         private string FormatMessage(MessageModel message)
-            => $"[{message.ProducerId}] disse: {message.Message}";
+            => $"[{message.ProducerId.Substring(0, 5)}] disse: {message.Message}";
 
         public string StatusBar
         {

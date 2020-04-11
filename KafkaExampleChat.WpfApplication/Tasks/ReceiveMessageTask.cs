@@ -23,7 +23,7 @@ namespace KafkaExampleChat.WpfApplication.Tasks
         {
             Task.Run(() =>
             {
-                _consumer.Execute(new MessageTopic(), Escrever, cancellationToken);
+                _consumer.Execute(new ChatMessageTopic(), Escrever, cancellationToken);
             });
         }
 
