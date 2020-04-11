@@ -4,8 +4,6 @@ using KafkaExampleChat.WpfApplication.Tasks;
 using KafkaExampleChat.WpfApplication.ViewModels;
 using KafkaExampleChat.WpfApplication.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Unity;
 
 namespace KafkaExampleChat.WpfApplication.Ioc
@@ -22,6 +20,7 @@ namespace KafkaExampleChat.WpfApplication.Ioc
 
             unityContainer.RegisterType<ReceiveMessageTask>();
             unityContainer.RegisterType<SendMessageCommand>();
+            unityContainer.RegisterType<SendActivityCommand>();
             unityContainer.RegisterType<MainWindow>();
             unityContainer.RegisterType<ChatViewModel>();
 

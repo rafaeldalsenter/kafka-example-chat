@@ -10,24 +10,39 @@ namespace KafkaExampleChat.WpfApplication.Tasks
 {
     public class ReceiveMessageTask
     {
-        private readonly IConsumer<ChatMessage> _consumer;
+        private readonly IConsumer<ChatMessage> _consumerChat;
+        private readonly IConsumer<ActivityMessage> _consumerActivity;
 
         public ChatViewModel ViewModel { get; set; }
 
-        public ReceiveMessageTask(IConsumer<ChatMessage> consumer)
+        public ReceiveMessageTask(IConsumer<ChatMessage> consumerChat,
+            IConsumer<ActivityMessage> consumerActivity)
         {
-            _consumer = consumer;
+            _consumerChat = consumerChat;
+            _consumerActivity = consumerActivity;
         }
 
         public void Execute(CancellationToken cancellationToken)
         {
             Task.Run(() =>
             {
-                _consumer.Execute(new MessageTopic(), Escrever, cancellationToken);
+                _consumerChat.Execute(new ChatMessageTopic(), EscreverChat, cancellationToken);
+            });
+
+            Task.Run(() =>
+            {
+                _consumerActivity.Execute(new ChatActivityTopic(), EscreverActivity, cancellationToken);
             });
         }
 
-        private void Escrever(ChatMessage chatMessage)
+        private void EscreverActivity(ActivityMessage activityMessage)
+        {
+            if (activityMessage.ProducerId.Equals(ViewModel.ChatModel.ProducerId)) return;
+
+            ViewModel.ChatModel.StatusBar = $"{activityMessage.ProducerId.Substring(0, 5)} está escrevendo...";
+        }
+
+        private void EscreverChat(ChatMessage chatMessage)
         {
             var messageModel = new MessageModel
             {

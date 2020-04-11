@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace KafkaExampleChat.Producers
 {
-    public class Producer : IProducer<ChatMessage>
+    public class Producer<TMessage> : IProducer<TMessage>
+        where TMessage : Message
     {
         private IProducer<Null, string> _producer;
 
@@ -17,7 +18,7 @@ namespace KafkaExampleChat.Producers
                 .Build();
         }
 
-        public async Task SendAsync(ITopic topic, ChatMessage message)
+        public async Task SendAsync(ITopic topic, TMessage message)
         {
             var producerMessage = new Message<Null, string>();
             producerMessage.Value = JsonConvert.SerializeObject(message);

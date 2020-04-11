@@ -55,10 +55,12 @@ namespace KafkaExampleChat.WpfApplication.Models
 
                 OnPropertyChanged(nameof(ChatWindow));
             }));
+
+            StatusBar = "";
         }
 
         private string FormatMessage(MessageModel message)
-            => $"[{message.ProducerId}] disse: {message.Message}";
+            => $"[{message.ProducerId.Substring(0, 5)}] disse: {message.Message}";
 
         public string StatusBar
         {

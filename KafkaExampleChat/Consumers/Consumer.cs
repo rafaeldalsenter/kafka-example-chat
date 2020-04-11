@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace KafkaExampleChat.Consumers
 {
-    public class Consumer : IConsumer<ChatMessage>
+    public class Consumer<TMessage> : IConsumer<TMessage> where TMessage : Message
     {
         private readonly IKafkaConfiguration _kafkaConfiguration;
 
@@ -18,7 +18,7 @@ namespace KafkaExampleChat.Consumers
             _kafkaConfiguration = kafkaConfiguration;
         }
 
-        public void Execute(ITopic topic, Action<ChatMessage> actionWriter, CancellationToken cancellationToken)
+        public void Execute(ITopic topic, Action<TMessage> actionWriter, CancellationToken cancellationToken)
         {
             using (var consumer = new ConsumerBuilder<string, string>(_kafkaConfiguration.GetConsumerConfiguration()).Build())
             {
@@ -29,7 +29,7 @@ namespace KafkaExampleChat.Consumers
                     var consumeResult = consumer.Consume();
                     if (consumeResult is null) continue;
 
-                    var message = JsonConvert.DeserializeObject<ChatMessage>(consumeResult.Value);
+                    var message = JsonConvert.DeserializeObject<TMessage>(consumeResult.Value);
 
                     actionWriter(message);
 
