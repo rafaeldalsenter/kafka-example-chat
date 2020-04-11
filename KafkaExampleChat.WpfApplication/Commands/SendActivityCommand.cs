@@ -1,17 +1,15 @@
-﻿using KafkaExampleChat.Configurations;
-using KafkaExampleChat.Messages;
+﻿using KafkaExampleChat.Messages;
 using KafkaExampleChat.Producers;
 using KafkaExampleChat.Topics;
 using KafkaExampleChat.WpfApplication.ViewModels;
 using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace KafkaExampleChat.WpfApplication.Commands
 {
-    public class SendMessageCommand : BaseCommand<ChatMessage>, ICommand
+    public class SendActivityCommand : BaseCommand<ActivityMessage>, ICommand
     {
-        public SendMessageCommand(IProducer<ChatMessage> producer) : base(producer)
+        public SendActivityCommand(IProducer<ActivityMessage> producer) : base(producer)
         {
         }
 
@@ -25,22 +23,14 @@ namespace KafkaExampleChat.WpfApplication.Commands
         {
             var viewModel = parameter as ChatViewModel;
 
-            var chatMessage = new ChatMessage
+            var activityMessage = new ActivityMessage
             {
                 Id = Guid.NewGuid(),
                 ProducerId = viewModel.ChatModel.ProducerId,
-                Text = viewModel.ChatModel.Message
+                IsWriting = true
             };
 
-            var sendMessageToKafka = SendMessageToKafka(viewModel, new ChatMessageTopic(), chatMessage);
-
-            if (!sendMessageToKafka)
-            {
-                viewModel.ChatModel.StatusBar = "Ops! Tente novamente!";
-                return;
-            }
-
-            viewModel.ChatModel.Message = string.Empty;
+            SendMessageToKafka(viewModel, new ChatActivityTopic(), activityMessage);
         }
     }
 }

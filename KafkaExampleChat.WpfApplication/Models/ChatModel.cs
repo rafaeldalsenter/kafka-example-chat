@@ -55,6 +55,8 @@ namespace KafkaExampleChat.WpfApplication.Models
 
                 OnPropertyChanged(nameof(ChatWindow));
             }));
+
+            StatusBar = "";
         }
 
         private string FormatMessage(MessageModel message)

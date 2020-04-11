@@ -20,6 +20,7 @@ namespace KafkaExampleChat.WpfApplication.Ioc
 
             unityContainer.RegisterType<ReceiveMessageTask>();
             unityContainer.RegisterType<SendMessageCommand>();
+            unityContainer.RegisterType<SendActivityCommand>();
             unityContainer.RegisterType<MainWindow>();
             unityContainer.RegisterType<ChatViewModel>();
 

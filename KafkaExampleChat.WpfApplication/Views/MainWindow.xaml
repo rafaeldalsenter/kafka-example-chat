@@ -4,11 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KafkaExampleChat.WpfApplication.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="Janela de chat" Height="450" Width="550" ResizeMode="NoResize">
     <Grid>
         <local:BindableRichTextBox Document="{Binding ChatModel.ChatWindow}" IsReadOnly="True" IsDocumentEnabled="True" Height="328"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,10,0" />
-        <TextBox Name="TxtEnvio" Text="{Binding ChatModel.Message}" Margin="10,0,0,30" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="408" Height="35" />
+        <TextBox Name="TxtEnvio" Text="{Binding ChatModel.Message}" Margin="10,0,0,30" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="408" Height="35">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="KeyUp">
+                    <i:InvokeCommandAction Command="{Binding SendActivityCommand}" CommandParameter="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
 
         <Button Name="BtnEnviar" Command="{Binding Path=SendMessageCommand}" CommandParameter="{Binding}" Content="Enviar" HorizontalAlignment="Right" Margin="0,0,10,30" VerticalAlignment="Bottom" Height="35" Width="100" />
         <StatusBar Name="StatusBar" VerticalAlignment="Bottom" Height="20">
